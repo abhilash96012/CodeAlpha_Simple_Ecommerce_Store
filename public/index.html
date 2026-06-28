@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA TECH // Premium Gear Store</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- App Container -->
+  <div id="app" class="dark-theme">
+    
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="#" class="logo" id="logo-btn">
+          <span class="logo-accent">AURA</span>TECH
+        </a>
+
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="search-input" placeholder="Search premium gear...">
+        </div>
+
+        <!-- Action Controls -->
+        <div class="nav-actions">
+          <button class="nav-btn auth-btn-trigger" id="auth-nav-btn">
+            <i data-lucide="user" class="btn-icon"></i>
+            <span id="auth-btn-text">Sign In</span>
+          </button>
+          
+          <button class="nav-btn order-history-btn-trigger" id="orders-nav-btn" style="display: none;">
+            <i data-lucide="package" class="btn-icon"></i>
+            <span>Orders</span>
+          </button>
+
+          <button class="nav-btn cart-btn-trigger" id="cart-nav-btn">
+            <div class="cart-icon-wrapper">
+              <i data-lucide="shopping-cart" class="btn-icon"></i>
+              <span class="cart-badge" id="cart-badge-count">0</span>
+            </div>
+            <span id="cart-btn-total">$0.00</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="main-content">
+      
+      <!-- Hero Banner Section -->
+      <section class="hero-section" id="hero-banner">
+        <div class="hero-content">
+          <span class="hero-tag">ENGINEERED FOR EXCELLENCE</span>
+          <h1 class="hero-title">Elevate Your Desk <span class="gradient-text">Setup</span></h1>
+          <p class="hero-desc">Discover high-performance mechanical keyboards, acoustic accessories, and precision-engineered control peripherals crafted for developers and gaming enthusiasts.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="explore-cta-btn">Shop Collection</button>
+            <a href="#catalog-anchor" class="btn btn-secondary">Learn More</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="ambient-glow"></div>
+          <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80" alt="Keyboard setup" class="hero-img">
+        </div>
+      </section>
+
+      <!-- Catalog Anchor Point -->
+      <div id="catalog-anchor" style="position: relative; top: -80px;"></div>
+
+      <!-- Filters & Catalog Header -->
+      <section class="catalog-section">
+        <div class="catalog-header">
+          <h2 class="section-title">Product Catalog</h2>
+          
+          <div class="catalog-controls">
+            <!-- Categories Filters -->
+            <div class="categories-filter" id="categories-container">
+              <button class="filter-chip active" data-category="All">All Items</button>
+              <button class="filter-chip" data-category="Keyboards">Keyboards</button>
+              <button class="filter-chip" data-category="Mice">Mice</button>
+              <button class="filter-chip" data-category="Audio">Audio</button>
+              <button class="filter-chip" data-category="Monitors">Monitors</button>
+              <button class="filter-chip" data-category="Accessories">Accessories</button>
+            </div>
+
+            <!-- Price Sorting -->
+            <div class="sort-wrapper">
+              <label for="sort-select">Sort By:</label>
+              <select id="sort-select" class="sort-dropdown">
+                <option value="default">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="product-grid-container">
+          <!-- Dynamically populated product cards -->
+          <div class="loading-spinner-wrapper">
+            <div class="spinner"></div>
+            <p>Loading premium gear...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <span class="logo-accent">AURA</span>TECH
+        </div>
+        <p class="footer-text">&copy; 2026 AURA TECH. Designed for CodeAlpha Full Stack Internship Task.</p>
+      </div>
+    </footer>
+
+    <!-- MODALS & DRAWERS -->
+
+    <!-- Auth Modal (Login / Register) -->
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal-card auth-card">
+        <button class="modal-close-btn close-auth-modal"><i data-lucide="x"></i></button>
+        
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tab-login-btn">Sign In</button>
+          <button class="auth-tab" id="tab-register-btn">Create Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" required placeholder="name@domain.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" class="auth-form">
+          <div class="form-group">
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" required placeholder="e.g. jdoe">
+          </div>
+          <div class="form-group">
+            <label for="register-email">Email Address</label>
+            <input type="email" id="register-email" required placeholder="name@domain.com">
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required placeholder="Minimum 6 characters">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="detail-modal">
+      <div class="modal-card detail-card">
+        <button class="modal-close-btn close-detail-modal"><i data-lucide="x"></i></button>
+        <div class="detail-layout" id="product-detail-content">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Drawer (Right Slide-out) -->
+    <div class="drawer-overlay" id="cart-drawer">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div class="drawer-title-wrapper">
+            <i data-lucide="shopping-bag" class="drawer-icon"></i>
+            <h3 class="drawer-title">Shopping Cart</h3>
+          </div>
+          <button class="drawer-close-btn close-cart-drawer"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="drawer-body" id="cart-items-container">
+          <!-- Dynamically populated cart items -->
+        </div>
+
+        <div class="drawer-footer">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cart-subtotal">$0.00</span>
+          </div>
+          <p class="shipping-info-text">Shipping & taxes calculated at checkout.</p>
+          <button class="btn btn-primary btn-full checkout-btn-trigger" id="checkout-drawer-btn" disabled>Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+      <div class="modal-card checkout-card">
+        <button class="modal-close-btn close-checkout-modal"><i data-lucide="x"></i></button>
+        
+        <h2 class="modal-heading">Secure Checkout</h2>
+        
+        <div class="checkout-layout">
+          <!-- Checkout Form -->
+          <form id="checkout-form" class="checkout-form">
+            <div class="checkout-section-title">Shipping Address</div>
+            <div class="form-group">
+              <label for="checkout-name">Full Name</label>
+              <input type="text" id="checkout-name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label for="checkout-address">Address Line</label>
+              <input type="text" id="checkout-address" required placeholder="123 Main St, Apt 4">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="checkout-city">City</label>
+                <input type="text" id="checkout-city" required placeholder="San Francisco">
+              </div>
+              <div class="form-group">
+                <label for="checkout-postal">Postal Code</label>
+                <input type="text" id="checkout-postal" required placeholder="94103">
+              </div>
+            </div>
+
+            <div class="checkout-section-title">Mock Payment Details</div>
+            
+            <!-- Graphical card component -->
+            <div class="credit-card-preview">
+              <div class="card-chip"></div>
+              <div class="card-number-display" id="card-number-preview">•••• •••• •••• ••••</div>
+              <div class="card-bottom-row">
+                <div>
+                  <div class="card-label">CARDHOLDER</div>
+                  <div class="card-name-display" id="card-name-preview">JOHN DOE</div>
+                </div>
+                <div>
+                  <div class="card-label">EXPIRES</div>
+                  <div class="card-expiry-display" id="card-expiry-preview">MM/YY</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="checkout-card-num">Card Number</label>
+              <input type="text" id="checkout-card-num" required maxlength="19" placeholder="1234 5678 1234 5678">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="checkout-card-expiry">Expiry Date</label>
+                <input type="text" id="checkout-card-expiry" required maxlength="5" placeholder="MM/YY">
+              </div>
+              <div class="form-group">
+                <label for="checkout-card-cvv">CVV</label>
+                <input type="password" id="checkout-card-cvv" required maxlength="3" placeholder="123">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" id="complete-checkout-btn">Complete Purchase ($0.00)</button>
+          </form>
+
+          <!-- Order Summary Panel -->
+          <div class="order-summary-panel">
+            <h4 class="panel-subtitle">Items Summary</h4>
+            <div class="summary-items-list" id="checkout-items-list">
+              <!-- Filled dynamically -->
+            </div>
+            <div class="divider"></div>
+            <div class="summary-row total-row">
+              <span>Total Price</span>
+              <span id="checkout-total-price">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order History Modal -->
+    <div class="modal-overlay" id="orders-modal">
+      <div class="modal-card orders-card">
+        <button class="modal-close-btn close-orders-modal"><i data-lucide="x"></i></button>
+        <h2 class="modal-heading">Your Order History</h2>
+        <div class="orders-list-container" id="orders-list">
+          <!-- Filled dynamically -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
